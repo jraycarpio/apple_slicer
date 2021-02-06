@@ -101,6 +101,7 @@ void loop() {
   motor1.setSpeed(motorSpeed);
   motor2.setSpeed(motorSpeed);
 
+  // Select action
   Serial.println("\nWhat would you like to do?");
   Serial.println("1) Change motor speed");
   Serial.println("2) Move for some x steps");

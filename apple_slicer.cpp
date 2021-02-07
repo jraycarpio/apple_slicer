@@ -107,6 +107,8 @@ void loop() {
   Serial.println("2) Move for some x steps");
   Serial.println("3) Control motors manually with buttons");
   Serial.println("4) Redefine up/down direction");
+  Serial.println("5) Zero position");
+  Serial.println("6) Move to specified position");
 
   Serial.println("\n");
 
@@ -199,6 +201,39 @@ void loop() {
       else {
         done = true;
       }
+    }
+  }
+
+  // Option 5: Zero position
+  else if (ans == 5) {
+    Serial.println("Please choose an option below to confirm that you would like to zero this current position.");
+    Serial.println("1) Yes, zero this position");
+    Serial.println("2) No, do not zero this position");
+    ans = userInput();
+
+    if (ans == 1) {
+      Serial.println("Zeroing position...");
+      pos = 0;
+    }
+    else {
+      Serial.println("Not zeroing position.");
+    }
+  }
+
+  // Option 6: Move to specific position
+  else if (ans == 6) {
+    Serial.println("Please specify a position you would like to move to:");
+    ans = userInput();
+    ans = ans - pos;
+
+    if (ans > 0) {
+      upDown = 1;
+      moveX(ans);
+    }
+    else {
+      upDown = 2;
+      ans = ans * (-1);
+      moveX(ans);
     }
   }
 

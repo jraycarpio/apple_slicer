@@ -12,9 +12,12 @@
 
 
 const int STEPS_PER_REV = 200;
-const int upButton = 12;
-const int downButton = 13;
+const int upButton = 13;
+const int downButton = 12;
 const int quitButton = 7;
+int upState;
+int downState;
+int quitState;
 int motorSpeed;
 int ans;
 int pos;
@@ -44,7 +47,7 @@ void moveX(int steps) {
   if (upDown == 1) {
     for (int i = 1; i <= steps; i++) {
       motor1.step(i * vDir);
-      motor2.step(i * (-1) * vDir);
+      motor2.step(i * vDir);
       pos = pos + i;
       Serial.print("POSITION = ");
       Serial.println(pos);
@@ -52,7 +55,7 @@ void moveX(int steps) {
     
   } else {
     for (int i = 1; i <= steps; i++) {
-      motor1.step(i * (-1) * vDir);
+      motor1.step(i * vDir);
       motor2.step(i * vDir);
       pos = pos - i;
       Serial.print("POSITION = ");
@@ -157,17 +160,24 @@ void loop() {
     done = false;
 
     while (done == false) {
-      if (upButton == HIGH) {
+      upState = digitalRead(upButton);
+      downState = digitalRead(downButton);
+      quitState = digitalRead(quitButton);
+      
+      if (upState == HIGH) {
         upDown = 1;
-        moveX(1);
+        Serial.println("UP BUTTON PRESSED");
+        moveX(100);
       }
 
-      if (downButton == HIGH) {
+      if (downState == HIGH) {
         upDown = 2;
-        moveX(1);
+        Serial.println("DOWN BUTTON PRESSED");
+        moveX(100);
       }
 
-      if (quitButton == HIGH) {
+      if (quitState == HIGH) {
+        Serial.println("QUIT BUTTON PRESSED");
         done = true;
       }
     }

@@ -46,18 +46,18 @@ void moveX(int steps) {
 
   if (upDown == 1) {
     for (int i = 1; i <= steps; i++) {
-      motor1.step(i * vDir);
-      motor2.step(i * vDir);
-      pos = pos + i;
+      motor1.step(vDir);
+      motor2.step(vDir);
+      pos = pos + 1;
       Serial.print("POSITION = ");
       Serial.println(pos);
     }
     
   } else {
     for (int i = 1; i <= steps; i++) {
-      motor1.step(i * vDir);
-      motor2.step(i * vDir);
-      pos = pos - i;
+      motor1.step(vDir * (-1));
+      motor2.step(vDir * (-1));
+      pos = pos - 1;
       Serial.print("POSITION = ");
       Serial.println(pos);
     }
@@ -197,11 +197,11 @@ void loop() {
 
       if (ans == 1) {
         upDown = 1;
-        moveX(100);
+        moveX(5);
       }
       else if (ans == 2) {
         upDown = 2;
-        moveX(100);
+        moveX(5);
       }
       else if (ans == 3) {
         vDir = vDir * (-1);
